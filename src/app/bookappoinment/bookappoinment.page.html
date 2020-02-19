@@ -1,0 +1,127 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title class="ion-text-center">
+            <img alt="logo" id="header_logo" height="40" src="assets/logo_small.png">
+        </ion-title>
+        <div slot="end" class="notice">
+            <fa-icon [icon]="['far', 'bell']"></fa-icon>
+        </div>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <div class="profile_top">
+        <img style="width: 100%;" [src]="apiLink+'public/images/thumb_'+barber_info.image">
+        <div class="profile_image">
+            <img [src]="apiLink+'public/images/thumb_'+barber_info.image" style="max-width:inherit;" height="100">
+        </div>
+    </div>
+    <h3 class="ion-text-center">{{ barber_info.fname }} {{ barber_info.lname }}</h3>
+    <h3 class="ion-text-uppercase">
+        <a>book an appointment with john</a>
+    </h3>
+    <hr/>
+    <h3>Services</h3>
+    <form>
+        <ion-list lines="full">
+            <ion-item *ngFor="let v of barber_info.service" lines="none" class="ion-no-padding">
+                <ion-checkbox (ionChange)="check($event,v.id,v.price,v.duration)" slot="start"></ion-checkbox>
+                <ion-label class="ion-text-wrap">
+                    <p><b>{{ v.service_name }}</b></p>
+                    <p><a>{{ v.duration }}</a></p>
+                    <p>{{ v.description }}</p>
+
+                </ion-label>
+                <p slot="end">${{ v.price }}</p>
+            </ion-item>
+        </ion-list>
+        <h3 class="ion-text-center">Share a My Favs Photo with your Barber/Stylist</h3>
+        <p class="ion-text-center">
+            To help your Barber or Stylist serve you better, share a picture from your My Favs gallery to show them the hairstyle you want.
+        </p>
+
+    </form>
+    <div class="ss_favor_home">
+        <ion-grid>
+            <ion-row>
+                <ion-col size="6" *ngFor="let v of barber_info.gallery">
+                    <ion-card>
+                        <ion-img ionImgViewer title="Demo" text="Directive" scheme="light" [src]="apiLink+'public/images/thumb_'+v.image"></ion-img>
+                        
+                    </ion-card>
+                </ion-col>
+            </ion-row>
+            
+        </ion-grid>
+        <div class="ion-text-center">
+            <ion-button style="min-width: 300px;" shape="round" color="primary ">Load More Favorites</ion-button>
+            <ion-button style="min-width: 300px;" shape="round" color="primary " fill="outline" routerLink='/home/ctabs/myfavfind'>Find More Barbers/Stylists</ion-button>
+        </div>
+    </div>
+    <div class="ss_calender_appoinment">
+        <h5>Select Appointment Time and Date</h5>
+        <ion-grid>
+            <ion-row>
+                <ion-col size="2">
+                    <ion-icon class="calender-icon" (click)="back()" name="arrow-dropleft-circle"></ion-icon>
+                </ion-col>
+                <ion-col class="ion-text-center">
+                    <p style="font-size: 17px"><b>{{ title }}</b></p>
+                </ion-col>
+                <ion-col size="2">
+                    <ion-icon class="calender-icon" style="float: right" (click)="next()" name="arrow-dropright-circle"></ion-icon>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        <!-- Default Segment -->
+        <calendar 
+            [currentDate]="calendar.currentDate"
+            [calendarMode]="calendar.mode"
+            [markDisabled]="markDisabled"
+            (onCurrentDateChanged)="onCurrentDateChanged($event)" 
+            (onRangeChanged)="reloadSource()" 
+            (onEventSelected)="onEventSelected($event)" 
+            (onTitleChanged)="onViewTitleChanged($event)" 
+            (onTimeSelected)="onTimeSelected($event)"
+            step="30">
+        </calendar>
+        <h5 *ngIf="totalPrice < 1" class="ion-text-center invalid">Please select a service first</h5>
+        <h5 *ngIf="totalPrice > 0 && schedule.length < 1" class="ion-text-center invalid">No schedule available</h5>
+        <ion-segment *ngIf="totalPrice > 0 && schedule.length > 0" scrollable>
+            
+            <ion-segment-button (click)="selectSlot(v.s_time,v.e_time)" [disabled]="v.is_booked == 'yes'" [class.booked]="v.is_booked == 'yes'" *ngFor="let v of schedule" value="{{ v.time | date : 'hh:mm a' }}">
+                <ion-label>{{ v.time | date : 'hh:mm a' }}</ion-label>
+            </ion-segment-button>
+            
+            
+        </ion-segment>
+
+
+    </div>
+    <div class="ss_payment_mathord">
+        <h5>Choose Payment Method</h5>
+        <p routerLink='/payment-method'>
+            <ion-icon name="add"></ion-icon> add payment method
+        </p>
+    </div>
+    <p><b>Policy | Terms and Conditions </b></p>
+    <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    </p>
+    <div class="ss_total_book">
+        <ion-grid>
+            <ion-row class="ion-align-items-center">
+                <ion-col>
+                    Total: ${{ totalPrice }}
+                </ion-col>
+                <ion-col size="5" class="ion-text-right">
+                    <ion-button color="dark" (click)="makeBooking()">
+                        Book Now
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+</ion-content>

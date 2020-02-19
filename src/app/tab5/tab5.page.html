@@ -1,0 +1,109 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Settings
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button style="min-width:auto">Logout</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- <div class="profile-picture" (click)="openActionSheet()">
+    <ion-img *ngIf="base64img == ''" src="{{ apiLink }}public/images/thumb_{{ img }}"></ion-img>
+    <ion-img *ngIf="base64img != ''" [src]="base64img"></ion-img>
+  </div>
+  <form [formGroup]="form">
+      <ion-item>
+        <ion-label position="floating">First Name</ion-label>
+        <ion-input formControlName="fname"  type="text"></ion-input>
+      </ion-item>
+      <small style="color:#f72815" *ngIf="!form.controls.fname.valid  && submitAttempt">Please enter your first name.</small>
+      <ion-item>
+          <ion-label position="floating">Last Name</ion-label>
+          <ion-input formControlName="lname"  type="text"></ion-input>
+        </ion-item>
+        <small style="color:#f72815" *ngIf="!form.controls.lname.valid  && submitAttempt">Please enter your last name.</small>
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input formControlName="email"  type="email"></ion-input>
+      </ion-item>
+      <small style="color:#f72815" *ngIf="!form.controls.email.valid  && submitAttempt">Please enter your email.</small>
+  </form> -->
+  
+  <ion-list>
+    <ion-item  [routerLink]="['/update-barber-profile',userInfo.id]">
+      <ion-icon name="contact" slot="start"></ion-icon>
+      <p>Edit Account</p>
+    </ion-item>
+    <ion-item routerLink="/barber-cng-pass">
+      <ion-icon name="key" slot="start"></ion-icon>
+      <p>Change Password</p>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="analytics" slot="start"></ion-icon>
+      <p>Subscription</p>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="link" slot="start"></ion-icon>
+      <p>Profile Link</p>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="calendar" slot="start"></ion-icon>
+      <p>Booking Preference</p>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="calendar" slot="start"></ion-icon>
+      <p>Cancellation</p>
+    </ion-item>
+    <ion-item>
+      <fa-icon slot="start" icon="chair"></fa-icon>
+      <p>Invite Barbers</p>
+    </ion-item>
+    <ion-item>
+      <fa-icon slot="start" icon="users"></fa-icon>
+      <p>Invite Clients</p>
+    </ion-item>
+    <ion-item>
+      <fa-icon slot="start" [icon]="['far', 'envelope-open']"></fa-icon>
+      <p>Send Feedback</p>
+    </ion-item>
+    <ion-item>
+      <fa-icon slot="start" [icon]="['far', 'envelope-open']"></fa-icon>
+      <p>Email Support</p>
+    </ion-item>
+    <ion-item>
+      <ion-icon slot="start" name="logo-facebook"></ion-icon>
+      <p>Facebook</p>
+    </ion-item>
+    <ion-item>
+      <ion-icon slot="start" name="logo-instagram"></ion-icon>
+      <p>Instagram</p>
+    </ion-item>
+    <ion-item>
+      <ion-icon slot="start" name="logo-twitter"></ion-icon>
+      <p>Twitter</p>
+    </ion-item>
+    <ion-item>
+      <ion-icon slot="start" name="browsers"></ion-icon>
+      <p>Website</p>
+    </ion-item>
+    <ion-item>
+      <ion-icon slot="start" name="clipboard"></ion-icon>
+      <p>Terms of service</p>
+    </ion-item>
+    <ion-item>
+      <ion-icon slot="start" name="lock"></ion-icon>
+      <p>Privacy Policy</p>
+    </ion-item>
+    <ion-item>
+      <ion-icon slot="start" name="help"></ion-icon>
+      <p>FAQs</p>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

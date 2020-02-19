@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>APPOINMENTS</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-segment (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="upcomming">
+      <ion-label>Uppcomming</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="past">
+      <ion-label>Past</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</ion-content>

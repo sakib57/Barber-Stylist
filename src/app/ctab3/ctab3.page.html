@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Search Barber</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-input id="prserachbar" (ionChange)="onSearchChange($event)" [(ngModel)]="supplier"
+        placeholder="Search Barber">
+      </ion-input>
+    </ion-item>
+    <ion-item *ngIf="resultsAvailable">
+      <ion-list style="width: 100%; max-height: 200px; overflow-y: scroll;">
+        <ion-item *ngFor="let result of results" (click)="supplierSelected(result)" button>
+          <ion-label>{{result}}</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-item>
+  </ion-list>
+</ion-content>

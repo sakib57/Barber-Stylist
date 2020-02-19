@@ -1,0 +1,186 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home2/tabs/tab1"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Edit Location</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form  form="ngForm" (ngSubmit)="onSubmit(form)">
+      <div class="ss_from">
+          <ion-list>
+              <h4><b>Address</b></h4>
+              <ion-item>
+                <ion-label position="floating">Shop Name</ion-label>
+                <ion-input [(ngModel)]="shop_name" name="shop_name"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="floating">Address-1</ion-label>
+                <ion-input  [(ngModel)]="addr1" name="addr1"></ion-input>
+              </ion-item>
+              <!-- <small style="color:#f72815" >Please enter duration.</small> -->
+              <ion-item>
+                <ion-label position="floating">Address-2</ion-label>
+                <ion-input  [(ngModel)]="addr2" name="addr2"></ion-input>
+              </ion-item>
+              <!-- <small style="color:#f72815" >Please enter duration.</small> -->
+              <ion-item>
+                <ion-label position="floating">City</ion-label>
+                <ion-input  [(ngModel)]="city" name="city"></ion-input>
+              </ion-item>
+              <!-- <small style="color:#f72815" >Please enter duration.</small> -->
+              <ion-item>
+                <ion-label position="floating">State</ion-label>
+                <ion-input  [(ngModel)]="state" name="state"></ion-input>
+              </ion-item>
+              <!-- <small style="color:#f72815" >Please enter duration.</small> -->
+              <ion-item>
+                <ion-label position="floating">Post Code</ion-label>
+                <ion-input  [(ngModel)]="post_code" name="post_code"></ion-input>
+              </ion-item>
+              <!-- <small style="color:#f72815" >Please enter duration.</small> -->
+              <ion-item>
+                <ion-label position="floating">Country</ion-label>
+                <ion-input  [(ngModel)]="country" name="country"></ion-input>
+              </ion-item>
+            </ion-list>
+      </div>
+      
+        <!-- <small style="color:#f72815" >Please enter duration.</small> -->
+        <div class="ss_switch">
+            <h4 style="margin-left: 30px"><b>Hours</b></h4>
+            <ion-grid>
+              <ion-row>
+                <ion-col size="5" class="ion-no-padding">
+                  <ion-item lines="none">
+                    <ion-toggle (ionChange)="sunSwitch($event)" [(ngModel)]="sunSw" [ngModelOptions]="{standalone: true}" slot="start"></ion-toggle>
+                    <ion-label>Sun</ion-label>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="3" class="ion-no-padding">
+                    <ion-datetime *ngIf="sunSw" [(ngModel)]="sunOpen" name="sunOpen" displayFormat="h:mm a" picker-format="h:mm a" placeholder="Open"></ion-datetime>
+                </ion-col>
+                <ion-col size="1" class="ion-no-padding">
+                    <h3 *ngIf="sunSw" style="margin:5px" class="ion-text-center">-</h3>
+                </ion-col>
+                <ion-col size="3" class="ion-no-padding">
+                    <ion-datetime *ngIf="sunSw" [(ngModel)]="sunClose" name="sunClose" displayFormat="h:mm a" picker-format="h:mm a" placeholder="Close"></ion-datetime>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="5" class="ion-no-padding">
+                  <ion-item lines="none">
+                    <ion-toggle (ionChange)="monSwitch($event)" [(ngModel)]="monSw" [ngModelOptions]="{standalone: true}" slot="start"></ion-toggle>
+                    <ion-label>Mon</ion-label>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="3" class="ion-no-padding">
+                    <ion-datetime *ngIf="monSw" [(ngModel)]="monOpen" name="monOpen" displayFormat="h:mm a" picker-format="h:mm a" placeholder="Open"></ion-datetime>
+                </ion-col>
+                <ion-col size="1" class="ion-no-padding">
+                    <h3 *ngIf="monSw" style="margin:5px" class="ion-text-center">-</h3>
+                </ion-col>
+                <ion-col size="3" class="ion-no-padding">
+                    <ion-datetime *ngIf="monSw" [(ngModel)]="monClose" name="monClose" displayFormat="h:mm a" picker-format="h:mm a" placeholder="Close"></ion-datetime>
+                </ion-col>
+              </ion-row>
+  
+              <ion-row>
+                <ion-col size="5" class="ion-no-padding">
+                  <ion-item lines="none">
+                    <ion-toggle (ionChange)="tueSwitch($event)" [(ngModel)]="tueSw" [ngModelOptions]="{standalone: true}" slot="start"></ion-toggle>
+                    <ion-label>Tue</ion-label>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="3" class="ion-no-padding">
+                    <ion-datetime *ngIf="tueSw" [(ngModel)]="tueOpen" name="tueOpen" displayFormat="h:mm a" picker-format="h:mm a" placeholder="Open"></ion-datetime>
+                </ion-col>
+                <ion-col size="1" class="ion-no-padding">
+                    <h3 *ngIf="tueSw" style="margin:5px" class="ion-text-center">-</h3>
+                </ion-col>
+                <ion-col size="3" class="ion-no-padding">
+                    <ion-datetime *ngIf="tueSw" [(ngModel)]="tueClose" name="tueClose" displayFormat="h:mm a" picker-format="h:mm a" placeholder="Close"></ion-datetime>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="5" class="ion-no-padding">
+                  <ion-item lines="none">
+                    <ion-toggle (ionChange)="wedSwitch($event)" [(ngModel)]="wedSw" [ngModelOptions]="{standalone: true}" slot="start"></ion-toggle>
+                    <ion-label>Wed</ion-label>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="3" class="ion-no-padding">
+                    <ion-datetime *ngIf="wedSw" [(ngModel)]="wedOpen" name="wedOpen" displayFormat="h:mm a" picker-format="h:mm a" placeholder="Open"></ion-datetime>
+                </ion-col>
+                <ion-col size="1" class="ion-no-padding">
+                    <h3 *ngIf="wedSw" style="margin:5px" class="ion-text-center">-</h3>
+                </ion-col>
+                <ion-col size="3" class="ion-no-padding">
+                    <ion-datetime *ngIf="wedSw" [(ngModel)]="wedClose" name="wedClose" displayFormat="h:mm a" picker-format="h:mm a" placeholder="Close"></ion-datetime>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="5" class="ion-no-padding">
+                  <ion-item lines="none">
+                    <ion-toggle (ionChange)="thuSwitch($event)" [(ngModel)]="thuSw" [ngModelOptions]="{standalone: true}" slot="start"></ion-toggle>
+                    <ion-label>Thu</ion-label>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="3" class="ion-no-padding">
+                    <ion-datetime *ngIf="thuSw" [(ngModel)]="thuOpen" name="thuOpen" displayFormat="h:mm a" picker-format="h:mm a" placeholder="Open"></ion-datetime>
+                </ion-col>
+                <ion-col size="1" class="ion-no-padding">
+                    <h3 *ngIf="thuSw" style="margin:5px" class="ion-text-center">-</h3>
+                </ion-col>
+                <ion-col size="3" class="ion-no-padding">
+                    <ion-datetime *ngIf="thuSw" [(ngModel)]="thuClose" name="thuClose" displayFormat="h:mm a" picker-format="h:mm a" placeholder="Close"></ion-datetime>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="5" class="ion-no-padding">
+                  <ion-item lines="none">
+                    <ion-toggle (ionChange)="friSwitch($event)" [(ngModel)]="friSw" [ngModelOptions]="{standalone: true}" slot="start"></ion-toggle>
+                    <ion-label>Fri</ion-label>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="3" class="ion-no-padding">
+                    <ion-datetime *ngIf="friSw" [(ngModel)]="friOpen" name="friOpen" displayFormat="h:mm a" picker-format="h:mm a" placeholder="Open"></ion-datetime>
+                </ion-col>
+                <ion-col size="1" class="ion-no-padding">
+                    <h3 *ngIf="friSw" style="margin:5px" class="ion-text-center">-</h3>
+                </ion-col>
+                <ion-col size="3" class="ion-no-padding">
+                    <ion-datetime *ngIf="friSw" [(ngModel)]="friClose" name="friClose" displayFormat="h:mm a" picker-format="h:mm a" placeholder="Close"></ion-datetime>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="5" class="ion-no-padding">
+                  <ion-item lines="none">
+                    <ion-toggle (ionChange)="satSwitch($event)" [(ngModel)]="satSw" [ngModelOptions]="{standalone: true}" slot="start"></ion-toggle>
+                    <ion-label>Sat</ion-label>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="3" class="ion-no-padding">
+                    <ion-datetime *ngIf="satSw" [(ngModel)]="satOpen" name="satOpen" displayFormat="h:mm a" picker-format="h:mm a" placeholder="Open"></ion-datetime>
+                </ion-col>
+                <ion-col size="1" class="ion-no-padding">
+                    <h3 *ngIf="satSw" style="margin:5px" class="ion-text-center">-</h3>
+                </ion-col>
+                <ion-col size="3" class="ion-no-padding">
+                    <ion-datetime *ngIf="satSw" [(ngModel)]="satClose" name="satClose" displayFormat="h:mm a"  picker-format="h:mm a" placeholder="Close"></ion-datetime>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+        </div>
+        <div class="ion-text-center" style="margin-bottom: 30px">
+            <ion-button (click)="onSubmit()" shape="round" fill="solid" style="margin-top: 20px; font-weight: 700;">Save</ion-button>
+        </div>
+    </form>
+</ion-content>

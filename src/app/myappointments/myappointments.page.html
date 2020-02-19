@@ -1,0 +1,116 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title class="ion-text-center">
+            <img alt="logo" id="header_logo" height="40" src="assets/logo_small.png">
+        </ion-title>
+        <div slot="end" class="notice">
+            <fa-icon [icon]="['far', 'bell']"></fa-icon>
+        </div>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <h2 class="ion-text-center">My Appointments</h2>
+    <!-- Segment with secondary color -->
+
+    <ion-segment [(ngModel)]="segment">
+        <ion-segment-button value="upcoming">
+            upcoming
+        </ion-segment-button>
+        <ion-segment-button value="past">
+            past
+        </ion-segment-button>
+    </ion-segment>
+    <hr/>
+    <div [ngSwitch]="segment">
+        <div *ngSwitchCase="'upcoming'">
+            <div *ngIf="upComingBooking.length > 0">
+                <div class="book_item" *ngFor="let v of upComingBooking let i = index">
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col size="6">
+                                <ion-list class="ion-no-padding" lines="none">
+                                    <ion-item lines="none" class="ion-no-padding">
+                                        <div slot="start" class="icon_box">
+                                            <fa-icon icon="map-marker-alt"></fa-icon>
+                                        </div>
+                                        <p>
+                                            {{ v.barber_info.first_name }} {{ v.barber_info.last_name }} <br/> {{ v.barber_info.shop_name }}<br/> {{ v.barber_info.addr1 }} {{ v.barber_info.addr2 }}, {{ v.barber_info.post_code }}
+                                        </p>
+                                    </ion-item>
+                                    <ion-item lines="none" class="ion-no-padding" *ngFor="let w of v.services">
+                                        <div slot="start" class="icon_box">
+                                            <fa-icon icon="cut"></fa-icon>
+                                        </div>
+                                        <p>{{ w.service_name }}</p>
+                                    </ion-item>
+                                    <ion-item lines="none" class="ion-no-padding">
+                                        <div slot="start" class="icon_box">
+                                            <fa-icon [icon]="['far', 'clock']"></fa-icon>
+                                        </div>
+                                        <p>
+                                            {{ v.date | date : 'MMMM d, y' }}<br> {{ v.schedule_start | date : 'hh:mm a' }}
+                                        </p>
+                                    </ion-item>
+                                </ion-list>
+                            </ion-col>
+                            <ion-col size="6">
+                                <ion-button (click)="confirm(v.id,i)" shape="round" color="primary " expand="full" >Confirm</ion-button>
+                                <br/>
+                                <ion-button (click)="cancel(v.id,i)" shape="round" color="primary " fill="outline" expand="full">Cancel</ion-button>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </div>
+            </div>
+            <div *ngIf="upComingBooking.length < 1">
+                <p class="ion-text-center no-item">No upcoming schedule</p>
+            </div>
+        </div>
+        <div *ngSwitchCase="'past'">
+            <div *ngIf="pastBooking.length > 0">
+                <div class="book_item" *ngFor="let v of pastBooking">
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col size="6">
+                                <ion-list class="ion-no-padding" lines="none">
+                                    <ion-item lines="none" class="ion-no-padding">
+                                        <div slot="start" class="icon_box">
+                                            <fa-icon icon="map-marker-alt"></fa-icon>
+                                        </div>
+                                        <p>
+                                            {{ v.barber_info.first_name }} {{ v.barber_info.last_name }} <br/> {{ v.barber_info.shop_name }}<br/> {{ v.barber_info.addr1 }} {{ v.barber_info.addr2 }}, {{ v.barber_info.post_code }}
+                                        </p>
+                                    </ion-item>
+                                    <ion-item lines="none" class="ion-no-padding" *ngFor="let w of v.services">
+                                        <div slot="start" class="icon_box">
+                                            <fa-icon icon="cut"></fa-icon>
+                                        </div>
+                                        <p>{{ w.service_name }}</p>
+                                    </ion-item>
+                                    <ion-item lines="none" class="ion-no-padding">
+                                        <div slot="start" class="icon_box">
+                                            <fa-icon [icon]="['far', 'clock']"></fa-icon>
+                                        </div>
+                                        <p>
+                                            {{ v.date | date : 'MMMM d, y' }}<br> {{ v.schedule_start | date : 'hh:mm a' }}
+                                        </p>
+                                    </ion-item>
+                                </ion-list>
+                            </ion-col>
+                            <ion-col size="6">
+                                <ion-button shape="round" fill="outline" color="primary " expand="full" routerLink='/home/ctabs/myappointments'>Write Review</ion-button>
+    
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </div>
+            </div>
+            <div *ngIf="pastBooking.length < 1">
+                <p class="ion-text-center no-item">No past schedule</p>
+            </div>
+        </div>
+    </div>
+</ion-content>

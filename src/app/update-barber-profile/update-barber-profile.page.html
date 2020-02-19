@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home2/tabs/tab5"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Update Account</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+      <div class="login_top" style="padding-top:20px">
+          <div class="profile-img" (click)="openActionSheet()">
+              <ion-img *ngIf="base64img == ''" src="{{ apiLink }}public/images/thumb_{{ img }}" ></ion-img>
+              <ion-img *ngIf="base64img != ''" [src]="base64img"></ion-img>
+          </div>
+      </div>
+      <form class="ss_from" [formGroup]="form">
+          <ion-list no-lines>
+              <ion-item class="ion-no-padding">
+                  <ion-label position="floating">first name <span>*</span></ion-label>
+                  <ion-input formControlName="fname"></ion-input>
+              </ion-item>
+              <small class="invalid" *ngIf="!form.controls.fname.valid  && submitAttempt">Please enter first name.</small>
+              <ion-item class="ion-no-padding">
+                  <ion-label position="floating">last name <span>*</span></ion-label>
+                  <ion-input formControlName="lname"></ion-input>
+              </ion-item>
+              <small class="invalid" *ngIf="!form.controls.lname.valid  && submitAttempt">Please enter last name.</small>
+              <ion-item class="ion-no-padding">
+                  <ion-label position="floating">EMAIL <span>*</span></ion-label>
+                  <ion-input formControlName="email"></ion-input>
+              </ion-item>
+              <small class="invalid" *ngIf="!form.controls.email.valid  && submitAttempt">Please enter valid email.</small>
+              <ion-button shape="round" color="primary " expand="full" (click)="onSubmit()">UPDATE</ion-button>
+          </ion-list>
+      </form>
+  </ion-content>

@@ -1,0 +1,169 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Appointments
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button style="min-width:auto">
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
+      <!-- <ion-button style="min-width:auto">
+        <ion-icon slot="icon-only" name="options"></ion-icon>
+      </ion-button> -->
+      <!-- <ion-button style="min-width:auto">
+        <ion-icon slot="icon-only" name="calendar"></ion-icon>
+      </ion-button> -->
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+      <ion-segment scrollable [(ngModel)]="segment">
+          <ion-segment-button value="requested">
+              requested
+          </ion-segment-button>
+          <ion-segment-button value="cancelled">
+              cancelled
+          </ion-segment-button>
+          <ion-segment-button value="confirmed">
+              confirmed
+          </ion-segment-button>
+          <ion-segment-button value="completed">
+              completed
+          </ion-segment-button>
+          <ion-segment-button value="noshow">
+              no-show
+          </ion-segment-button>
+      </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    
+    <div [ngSwitch]="segment">
+      <div *ngSwitchCase="'requested'">
+          <div class="ss_calender_appoinment">
+              <ion-grid>
+                  <ion-row>
+                      <ion-col size="2">
+                          <ion-icon class="calender-icon" (click)="back()" name="arrow-dropleft-circle"></ion-icon>
+                      </ion-col>
+                      <ion-col class="ion-text-center">
+                          <p style="font-size: 17px"><b>{{ title }}</b></p>
+                      </ion-col>
+                      <ion-col size="2">
+                          <ion-icon class="calender-icon" style="float: right" (click)="next()" name="arrow-dropright-circle"></ion-icon>
+                      </ion-col>
+                  </ion-row>
+              </ion-grid>
+              <!-- Default Segment -->
+              <calendar 
+                [currentDate]="calendar.currentDate"
+                [calendarMode]="calendar.mode"
+                (onCurrentDateChanged)="onCurrentDateChanged($event)" 
+                (onRangeChanged)="reloadSource()" 
+                (onEventSelected)="onEventSelected($event)" 
+                (onTitleChanged)="onViewTitleChanged($event)" 
+                (onTimeSelected)="onTimeSelected($event)"
+                step="30">
+            </calendar>
+          </div>
+          <div *ngIf="data.length > 0">
+            <div class="book_item" *ngFor="let v of data let i = index">
+                <ion-grid >
+                    <ion-row >
+                        <ion-col size="7">
+                            <ion-list class="ion-no-padding" lines="none">
+                                <ion-item lines="none" class="ion-no-padding">
+                                    <div slot="start" class="icon_box">
+                                        <fa-icon icon="user"></fa-icon>
+                                    </div>
+                                    <p>
+                                        {{ v.first_name }} {{ v.last_name }}
+                                    </p>
+                                </ion-item>
+                                <ion-item lines="none" class="ion-no-padding" >
+                                    <div slot="start" class="icon_box">
+                                        <fa-icon icon="cut"></fa-icon>
+                                    </div>
+                                    <p>Service name</p>
+                                </ion-item>
+                                <ion-item lines="none" class="ion-no-padding">
+                                    <div slot="start" class="icon_box">
+                                        <fa-icon [icon]="['far', 'clock']"></fa-icon>
+                                    </div>
+                                    <p>
+                                        {{ v.schedule_start | date : 'h:m a' }}<br> {{ v.date | date }}
+                                    </p>
+                                </ion-item>
+                            </ion-list>
+                        </ion-col>
+                        <ion-col size="5">
+                            <ion-button (click)="confirm(v.id,i)" shape="round" color="primary " expand="full" >Confirm</ion-button>
+                            <br/>
+                            <ion-button (click)="cancel(v.id,i)" shape="round" color="primary " fill="outline" expand="full">Cancel</ion-button>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </div>
+          </div>
+          <div *ngIf="data.length < 1">
+            <div class="book_item">
+                <ion-grid >
+                  <ion-row>
+                    <ion-col>
+                      <p class="no-item">No booking found</p>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+            </div>
+          </div>
+      </div>
+
+      <div *ngSwitchCase="'cancelled'">
+          <ion-list>
+            <ion-item *ngFor="let v of canceled">
+              <p>{{ v.first_name }} {{ v.last_name }} <br> {{ v.date | date  }} <br>{{ v.schedule_start | date : 'h:m a' }}</p>
+              
+            </ion-item>
+          </ion-list>
+      </div>
+      <div *ngSwitchCase="'confirmed'">
+        <ion-list>
+          <ion-item *ngFor="let v of confirmed">
+            <p>{{ v.first_name }} {{ v.last_name }} <br> {{ v.date | date  }} <br>{{ v.schedule_start | date : 'h:m a' }}</p>
+            
+          </ion-item>
+        </ion-list>
+      </div>
+    </div>
+
+  
+</ion-content>
+<!-- <ion-content>
+  <div class="profile-picture" (click)="openActionSheet()">
+    <ion-img *ngIf="base64img == ''" src="{{ apiLink }}public/images/thumb_{{ img }}"></ion-img>
+    <ion-img *ngIf="base64img != ''" [src]="base64img"></ion-img>
+  </div>
+  <form [formGroup]="form">
+      <ion-item>
+        <ion-label position="floating">First Name</ion-label>
+        <ion-input formControlName="fname"  type="text"></ion-input>
+      </ion-item>
+      <small style="color:#f72815" *ngIf="!form.controls.fname.valid  && submitAttempt">Please enter your first name.</small>
+      <ion-item>
+          <ion-label position="floating">Last Name</ion-label>
+          <ion-input formControlName="lname"  type="text"></ion-input>
+        </ion-item>
+        <small style="color:#f72815" *ngIf="!form.controls.lname.valid  && submitAttempt">Please enter your last name.</small>
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input formControlName="email"  type="email"></ion-input>
+      </ion-item>
+      <small style="color:#f72815" *ngIf="!form.controls.email.valid  && submitAttempt">Please enter your email.</small>
+  </form>
+  
+
+
+</ion-content> -->

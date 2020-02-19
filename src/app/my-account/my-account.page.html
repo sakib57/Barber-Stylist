@@ -1,0 +1,80 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home/ctabs/tab4"></ion-back-button>
+    </ion-buttons>
+    <ion-title>My Account</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+  <div class="login_top" style="padding-top: 40px">
+    <p style="margin-top: 0px;margin-bottom:15px">MY ACCOUNT</p>
+    <div class="profile-img">
+      <div class="add-photo" (click)="openActionSheet()" *ngIf="img == '' && base64img == ''" >
+        <p style="margin: 0px;color:white;font-weight:500">ADD <br> PHOTO</p> 
+      </div>
+      <img (click)="openActionSheet()" *ngIf="img != '' && base64img == ''" [src]="apiLink+'public/images/thumb_'+img" style="width:100%">
+      <img (click)="openActionSheet()" *ngIf="base64img != ''" [src]="base64img">
+  </div>
+  </div>
+
+  <form class="ss_from" [formGroup]="form">
+      <ion-list no-lines>
+          <ion-item class="ion-no-padding">
+              <ion-label position="floating">first name <span>*</span></ion-label>
+              <ion-input formControlName="fname"></ion-input>
+          </ion-item>
+          <small class="invalid" *ngIf="!form.controls.fname.valid  && submitAttempt">Please enter first name.</small>
+          <ion-item class="ion-no-padding">
+              <ion-label position="floating">last name <span>*</span></ion-label>
+              <ion-input formControlName="lname"></ion-input>
+          </ion-item>
+          <small class="invalid" *ngIf="!form.controls.lname.valid  && submitAttempt">Please enter last name.</small>
+          <ion-item class="ion-no-padding">
+              <ion-label position="floating">EMAIL <span>*</span></ion-label>
+              <ion-input formControlName="email"></ion-input>
+          </ion-item>
+          <small class="invalid" *ngIf="!form.controls.email.valid  && submitAttempt">Please enter valid email.</small>
+          
+          <ion-item class="ion-no-padding">
+              <ion-label position="floating">Address line 1 <span>*</span></ion-label>
+              <ion-input formControlName="addr1"></ion-input>
+          </ion-item>
+          <small class="invalid" *ngIf="!form.controls.addr1.valid  && submitAttempt">Please enter address line 1.</small>
+          <ion-item class="ion-no-padding">
+              <ion-label position="floating">address line 2 </ion-label>
+              <ion-input formControlName="addr2"></ion-input>
+          </ion-item>
+          <small class="invalid" *ngIf="!form.controls.addr2.valid  && submitAttempt">Please enter address line 2.</small>
+          <ion-item class="ion-no-padding">
+              <ion-label position="floating">city <span>*</span></ion-label>
+              <ion-input formControlName="city"></ion-input>
+          </ion-item>
+          <small class="invalid" *ngIf="!form.controls.city.valid  && submitAttempt">Please enter city.</small>
+          <ion-item class="ion-no-padding">
+              <ion-label position="floating">state <span>*</span></ion-label>
+              <ion-input formControlName="state"></ion-input>
+          </ion-item>
+          <small class="invalid" *ngIf="!form.controls.state.valid  && submitAttempt">Please enter state.</small>
+          <ion-item class="ion-no-padding">
+              <ion-label position="floating">postal code <span>*</span></ion-label>
+              <ion-input formControlName="post_code"></ion-input>
+          </ion-item>
+          <small class="invalid" *ngIf="!form.controls.post_code.valid  && submitAttempt">Please enter postal code.</small>
+          <ion-item class="ion-no-padding">
+              <ion-label position="floating">country <span>*</span></ion-label>
+              <ion-input formControlName="country"></ion-input>
+          </ion-item>
+          <small class="invalid" *ngIf="!form.controls.country.valid  && submitAttempt">Please enter country.</small>
+          <ion-item class="ion-no-padding">
+              <ion-label position="floating">phone number <span>*</span></ion-label>
+              <ion-input formControlName="phone" type="text"></ion-input>
+          </ion-item>
+          <small class="invalid" *ngIf="!form.controls.phone.valid  && submitAttempt">Please enter phone.</small>
+          
+          <ion-button shape="round" color="primary " expand="full" (click)="onSubmit()">UPDATE</ion-button>
+
+      </ion-list>
+  </form>
+</ion-content>

@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-back-button defaultHref="/forget"></ion-back-button>
+    </ion-buttons>
+    <ion-title></ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="login_top">
+      <p>Reset password</p>
+      <div class="logo"> <img src="assets/logo.png" routerLink='/' /></div>
+  </div>
+  <form [formGroup]="form" class="ss_from">
+      <ion-list lines="full">
+          <ion-item no-padding>
+              <ion-label position="floating">enter new password</ion-label>
+              <ion-input formControlName="password" type='password'></ion-input>
+          </ion-item>
+          <small class="invalid" *ngIf="!form.controls.password.valid  && submitAttempt">Please enter minimum 6 character password.</small>
+          
+          <ion-item no-padding>
+              <ion-label position="floating">confirm password</ion-label>
+              <ion-input formControlName="conf_password" type="password"></ion-input>
+          </ion-item>
+          <small class="invalid" *ngIf="!form.controls.conf_password.valid  && submitAttempt">Please enter confirm password.</small>
+          <small class="invalid" *ngIf="!form.get('conf_password').errors && form.hasError('passwordNotMatch') && (form.get('conf_password').dirty || form.get('conf_password').touched)">
+            Password and Confirm Password fields match
+          </small>
+
+          <ion-button (click)="onSubmit()" shape="round" color="primary " expand="full">Update</ion-button>
+
+
+          
+      </ion-list>
+  </form>
+</ion-content>

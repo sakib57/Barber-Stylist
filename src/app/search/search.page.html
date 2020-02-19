@@ -1,0 +1,38 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title class="ion-text-center">
+            <img alt="logo" id="header_logo" height="40" src="assets/logo_small.png">
+        </ion-title>
+        <div slot="end" class="notice">
+            <fa-icon [icon]="['far', 'bell']"></fa-icon>
+        </div>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form [formGroup] = 'form' class="ss_from">
+        <h3 class="ion-text-center">Find Barbers & Stylists</h3>
+        <p class="ion-text-center">Search for Barbers or Stylists or both in your area. Make your selection then enter your zip code or find your location to begin your search.</p>
+        <ion-list lines="full">
+            <ion-item class="ion-no-padding">
+                <ion-checkbox (ionChange)="barberCheck($event)" slot="start"></ion-checkbox>
+                <ion-label>Find barbers</ion-label>
+            </ion-item>
+            <ion-item class="ion-no-padding">
+                <ion-checkbox (ionChange)="stylistCheck($event)" slot="start"></ion-checkbox>
+                <ion-label>Find stylists</ion-label>
+            </ion-item>
+            <ion-item class="ion-no-padding">
+                <ion-label position="floating">enter your zip code</ion-label>
+                <ion-input formControlName="zip"></ion-input>
+            </ion-item>
+            <ion-button (click)="onSubmit()" shape="round" color="primary " expand="full">Submit</ion-button>
+
+            <ion-button style="margin-top: 0px;" shape="round" fill="outline" color="primary " expand="full" routerLink='/home/ctabs/serachresult'>Find By Location</ion-button>
+
+        </ion-list>
+    </form>
+</ion-content>

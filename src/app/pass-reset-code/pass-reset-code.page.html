@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-back-button defaultHref="/forget"></ion-back-button>
+    </ion-buttons>
+    <ion-title></ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="login_top">
+      <p>Password recovery</p>
+      <div class="message">A password reset code has been sent to your email. To recover your password please put that code below</div>
+      <div class="logo"> <img src="assets/logo.png" routerLink='/' /></div>
+  </div>
+  <form [formGroup]="form" class="ss_from">
+      <ion-list lines="full">
+          <ion-item no-padding>
+              <ion-label position="floating">enter password reset code</ion-label>
+              <ion-input formControlName="code"></ion-input>
+          </ion-item>
+          <small class="invalid" *ngIf="!form.controls.code.valid  && submitAttempt">Please enter 4 digit code.</small>
+          
+
+          <ion-button (click)="onSubmit()" shape="round" color="primary " expand="full">continue</ion-button>
+
+
+          
+      </ion-list>
+  </form>
+</ion-content>

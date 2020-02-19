@@ -1,0 +1,39 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title class="ion-text-center">
+            <img alt="logo" id="header_logo" height="40" src="assets/logo_small.png">
+        </ion-title>
+        <div slot="end" class="notice">
+            <fa-icon [icon]="['far', 'bell']"></fa-icon>
+        </div>
+
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <div class="fav_banner">
+        <img src="assets/fab_icon.png" height="160" />
+        <h1>My Saved Favorites</h1>
+    </div>
+
+    <div class="ss_favor_home">
+        <h3 class="ion-text-center">Search For More Styles</h3>
+
+
+    </div>
+    <form class="ss_from">
+        <ion-list lines="full">
+            <ion-item class="ion-no-padding">
+                <ion-label position="floating">ENTER name of hairSTYLE</ion-label>
+                <ion-input></ion-input>
+            </ion-item>
+
+            <p>To search, enter the name of the hairstyle you are looking for in the field above then click the submit button to find results. </p>
+
+            <ion-button shape="round" color="primary " expand="full" routerLink='/home/ctabs/myfavfindresult'>SUBMIT</ion-button>
+        </ion-list>
+    </form>
+</ion-content>

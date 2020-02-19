@@ -1,0 +1,269 @@
+<ion-header>
+  <!-- <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title class="ion-text-center">
+          <img alt="logo" id="header_logo" height="40" src="assets/logo_small.png">
+      </ion-title>
+      <div slot="end" class="notice">
+          <fa-icon [icon]="['far', 'bell']"></fa-icon>
+      </div>
+  </ion-toolbar> -->
+  <ion-toolbar>
+      <!-- <div class="login_top" style="padding-top: 5px">
+        <div class="logo" style="width: 150px;height: 150px;margin:auto">
+            <img style="border-radius:50%;width: 150px;height: 150px" *ngIf="userInfo.image != ''" [src]="apiLink+'public/images/'+userInfo.image" />
+            <img style="height:240px" *ngIf="userInfo.image == ''" src="assets/demo_user.png" />
+        </div>
+        <p style="font-size: 20px">{{ userInfo.name }}</p>
+      </div> -->
+      <div class="login_top" style="padding-top:40px">
+        <div class="profile-img-small">
+          <img *ngIf="userInfo.image != null" [src]="apiLink+'public/images/'+userInfo.image" />
+          <img *ngIf="userInfo.image == null" src="assets/demo_user.png" />
+        </div>
+        <p style="font-size: 20px;text-align: center">{{ userInfo.name }}</p>
+      </div>
+
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="info" checked>
+        <ion-label>INFO</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="stars">
+        <div class="rating">
+            <fa-icon  slot="start" icon="star"></fa-icon>
+            <fa-icon slot="start" icon="star"></fa-icon>
+            <fa-icon slot="start" icon="star"></fa-icon>
+            <fa-icon slot="start" icon="star"></fa-icon>
+            <fa-icon [icon]="['far', 'star']"></fa-icon>
+        </div>
+      </ion-segment-button>
+      <ion-segment-button value="services">
+        <ion-label>SERVICES</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div *ngIf="active == 'info'">
+      <ion-grid>
+          <ion-row>
+            <ion-col size="6">
+                <h3>Info</h3>
+            </ion-col>
+            <ion-col size="6"></ion-col>
+          </ion-row>
+          <ion-row routerLink="/edit-barber-info" style="outline: none">
+            <ion-col>
+                <h5 class="invalid" *ngIf="!userInfo.shopName">No shop name yet</h5>
+                <h5 *ngIf="userInfo.shopName">{{ userInfo.shopName }}</h5>
+
+                <p>{{ this.userInfo.addr1 }}</p>
+                <p>{{ this.userInfo.addr2 }}</p><br>
+                <p *ngIf="satOpen"><b>Saturday: </b>{{ userInfo.sat_st | date : 'hh:mm a' }} - {{ userInfo.sat_en | date : 'hh:mm a' }}</p>
+                <p *ngIf="sunOpen"><b>Sunday: </b>{{ userInfo.sun_st | date : 'hh:mm a' }} - {{ userInfo.sun_en | date : 'hh:mm a' }}</p>
+                <p *ngIf="monOpen"><b>Monday: </b>{{ userInfo.mon_st | date : 'hh:mm a' }} - {{ userInfo.mon_en | date : 'hh:mm a' }}</p>
+                <p *ngIf="tueOpen"><b>Tuesday: </b>{{ userInfo.tue_st | date : 'hh:mm a' }} - {{ userInfo.tue_en | date : 'hh:mm a' }}</p>
+                <p *ngIf="wedOpen"><b>Wednesday: </b>{{ userInfo.wed_st | date : 'hh:mm a' }} - {{ userInfo.wed_en | date : 'hh:mm a' }}</p>
+                <p *ngIf="thuOpen"><b>Thursday: </b>{{ userInfo.thu_st | date : 'hh:mm a' }} - {{ userInfo.thu_en | date : 'hh:mm a' }}</p>
+                <p *ngIf="friOpen"><b>Friday: </b>{{ userInfo.fri_st | date : 'hh:mm a' }} - {{ userInfo.fri_en | date : 'hh:mm a' }}</p>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="galleries.length > 0">
+            <ion-col size="6" *ngFor="let v of galleries">
+              <ion-img [src]="apiLink+'public/images/thumb_'+v.image"></ion-img>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="galleries.length < 1">
+            <ion-col>
+              <p class="no-item">No image</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+  </div>
+  
+  <div *ngIf="active == 'stars'">
+              <ion-grid>
+                  <ion-row>
+                    <ion-col size="6">
+                        <h3>Reviews</h3>
+                    </ion-col>
+                    <ion-col size="6"></ion-col>
+                  </ion-row>
+                </ion-grid>
+              <ion-list lines="none" *ngIf="reviews.length > 0">
+                  <ion-item-group class="ion-padding" *ngFor="let v of reviews">
+                      <ion-item class="ion-no-padding">
+                          <ion-avatar slot="start">
+                              <img [src]="apiLink+'public/images/thumb_'+v.image" height="100">
+                          </ion-avatar>
+                          <ion-label>
+                              <h2>{{ v.first_name }} {{ v.last_name }}</h2>
+                              <p><a>{{ v.created_at | date }}</a></p>
+                          </ion-label>
+                          <div class="rating" slot="end" *ngIf="v.star == '1'">
+                              <fa-icon slot="start" icon="star"></fa-icon>
+                              <fa-icon [icon]="['far', 'star']"></fa-icon>
+                              <fa-icon [icon]="['far', 'star']"></fa-icon>
+                              <fa-icon [icon]="['far', 'star']"></fa-icon>
+                              <fa-icon [icon]="['far', 'star']"></fa-icon>
+                          </div>
+
+                          <div class="rating" slot="end" *ngIf="v.star == '2'">
+                              <fa-icon slot="start" icon="star"></fa-icon>
+                              <fa-icon slot="start" icon="star"></fa-icon>
+                              <fa-icon [icon]="['far', 'star']"></fa-icon>
+                              <fa-icon [icon]="['far', 'star']"></fa-icon>
+                              <fa-icon [icon]="['far', 'star']"></fa-icon>
+                          </div>
+
+                          <div class="rating" slot="end" *ngIf="v.star == '3'">
+                              <fa-icon slot="start" icon="star"></fa-icon>
+                              <fa-icon slot="start" icon="star"></fa-icon>
+                              <fa-icon slot="start" icon="star"></fa-icon>
+                              <fa-icon [icon]="['far', 'star']"></fa-icon>
+                              <fa-icon [icon]="['far', 'star']"></fa-icon>
+                          </div>
+
+                          <div class="rating" slot="end" *ngIf="v.star == '4'">
+                              <fa-icon slot="start" icon="star"></fa-icon>
+                              <fa-icon slot="start" icon="star"></fa-icon>
+                              <fa-icon slot="start" icon="star"></fa-icon>
+                              <fa-icon slot="start" icon="star"></fa-icon>
+                              <fa-icon [icon]="['far', 'star']"></fa-icon>
+                          </div>
+
+                          <div class="rating" slot="end" *ngIf="v.star == '5'">
+                              <fa-icon slot="start" icon="star"></fa-icon>
+                              <fa-icon slot="start" icon="star"></fa-icon>
+                              <fa-icon slot="start" icon="star"></fa-icon>
+                              <fa-icon slot="start" icon="star"></fa-icon>
+                              <fa-icon slot="start" icon="star"></fa-icon>
+                          </div>
+                      </ion-item>
+                      <p slot="none" class="ion-text-wrap" style="margin: 0px">{{ v.message }}</p>
+                  </ion-item-group>
+              </ion-list>
+              <p class="no-item" *ngIf="reviews.length < 1">No review yet</p>
+              
+  </div>
+
+
+  <div *ngIf="active == 'services'">
+      <div >
+        <ion-grid>
+          <ion-row>
+            <ion-col size="6">
+                <h3>Services</h3>
+            </ion-col>
+            <ion-col size="6">
+                <ion-button routerLink="/create-service" style="min-width:auto;float:right;outline: none" shape="round">
+                    <fa-icon slot="icon-only" icon="plus"></fa-icon>
+                </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+          <ion-list *ngIf="services.length > 0">
+              <ion-item lines="none"  *ngFor="let v of services">
+                  <p>
+                      <b>{{ v.service_name }}</b><br/>
+                      <a>{{ v.duration }}</a><br/> {{ v.description }}
+                  </p>
+                  <p slot="end">${{ v.price }}</p>
+              </ion-item>
+          </ion-list>
+          <p class="no-item" *ngIf="services.length < 1">No service yet</p>
+      </div>
+  </div>
+
+
+  
+  
+</ion-content>
+
+
+
+<!-- <ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Barber Home</ion-title>
+    <ion-buttons slot="end">
+        <ion-button><ion-icon slot="icon-only" name="settings"></ion-icon></ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="service" checked>
+        <ion-label>Service</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="gallery">
+        <ion-label>Gallery</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="booking">
+          <ion-label>Bookings</ion-label>
+        </ion-segment-button>
+      <ion-segment-button value="reviews">
+          <ion-label>Reviews</ion-label>
+        </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+  
+</ion-header>
+<ion-content>
+  <div *ngIf="active == 'service'">
+    <h2 class="ion-text-center">Services</h2>
+    <ion-button routerLink="/create-service">Add</ion-button>
+    <ion-list>
+      <ion-item *ngFor="let v of services">{{ v.service_name }}</ion-item>
+    </ion-list>
+  </div>
+  <div *ngIf="active == 'gallery'" style="padding:0px 8px">
+    <h2 class="ion-text-center">Gallery</h2>
+    <h6 class="ion-text-center" *ngIf="errMsg != ''">{{ errMsg }}</h6>
+    <ion-button (click)="openActionSheet()">Add</ion-button>
+    <ion-button style="float:right" (click)="onSave()">Save</ion-button>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="4" *ngFor="let v of galleries">
+            <ion-card  class="img-card">
+                <ion-card-content>
+                  <ion-img *ngIf="base64img != ''" [src]="base64img" alt=""></ion-img>
+                  <hr>
+                  <ion-img src="{{aplink}}public/images/thumb_{{ v.image }}"></ion-img>
+                </ion-card-content>
+              </ion-card>
+        </ion-col>
+      </ion-row>
+      
+    </ion-grid>
+    
+  </div>
+  <div *ngIf="active == 'booking'">
+    <h2 class="ion-text-center">Booking</h2>
+    <ion-list>
+      <ion-item *ngFor="let v of bookings">{{ v.schedule }}</ion-item>
+    </ion-list>
+  </div>
+  <div *ngIf="active == 'reviews'">
+    <h2 class="ion-text-center">Reviews</h2>
+    <ion-list>
+      <ion-item *ngFor="let v of reviews">
+        <ion-grid>
+          <ion-row>
+            <ion-col>{{ v.name }} ({{ v.star }})</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{ v.message }}</ion-col>
+          </ion-row>
+        </ion-grid>
+        
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content> -->

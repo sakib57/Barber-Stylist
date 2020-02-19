@@ -1,0 +1,113 @@
+<ion-content>
+    <div class="login_top">
+        <p>SIGN UP</p>
+        <div class="logo"> <img src="assets/logo.png" routerLink='/' /></div>
+    </div>
+    <form class="ss_from" [formGroup]="form">
+        <p>Create an account and take advantage of everything this app has to offer!</p>
+        <ion-list no-lines>
+            <ion-item class="ion-no-padding">
+                <div slot="start">User</div>
+                <ion-toggle (ionChange)="switch($event)" class="ion-text-center"></ion-toggle>
+                <div slot="end">Barber / Stylist</div>
+            </ion-item>
+            <ion-item class="ion-no-padding" *ngIf="Switch">
+                <div slot="start">Barber</div>
+                <ion-toggle (ionChange)="change($event)" class="ion-text-center"></ion-toggle>
+                <div slot="end">Stylist</div>
+            </ion-item>
+            <ion-item class="ion-no-padding">
+                <ion-label position="floating">first name <span>*</span></ion-label>
+                <ion-input formControlName="fname"></ion-input>
+            </ion-item>
+            <small class="invalid" *ngIf="!form.controls.fname.valid  && submitAttempt" >Please enter valid first name</small>
+            
+            <ion-item class="ion-no-padding">
+                <ion-label position="floating">last name <span>*</span></ion-label>
+                <ion-input formControlName="lname"></ion-input>
+            </ion-item>
+            <small class="invalid" *ngIf="!form.controls.lname.valid  && submitAttempt" >Please enter valid lname name</small>
+            
+            <ion-item class="ion-no-padding">
+                <ion-label position="floating">EMAIL <span>*</span></ion-label>
+                <ion-input formControlName="email"></ion-input>
+            </ion-item>
+            <small class="invalid" *ngIf="!form.controls.email.valid  && submitAttempt">Please enter valid email.</small>
+            
+            <ion-item class="ion-no-padding">
+                <ion-label position="floating">USERNAME <span>*</span></ion-label>
+                <ion-input formControlName="username"></ion-input>
+            </ion-item>
+            <small class="invalid" *ngIf="!form.controls.username.valid  && submitAttempt">Please enter minimum 3 character user name.</small>
+            <ion-item class="ion-no-padding">
+                <ion-label position="floating">PASSWORD <span>*</span></ion-label>
+                <ion-input formControlName="password" type="password"></ion-input>
+            </ion-item>
+            <small class="invalid" *ngIf="!form.controls.password.valid  && submitAttempt">Please enter minimum 6 character password.</small>
+            <ion-item class="ion-no-padding">
+                <ion-label position="floating">confirm PASSWORD <span>*</span></ion-label>
+                <ion-input formControlName="conf_password" type="password"></ion-input>
+            </ion-item>
+            <small class="invalid" *ngIf="!form.controls.conf_password.valid  && submitAttempt">Please enter confirm password.</small>
+            <small class="invalid" *ngIf="!form.get('conf_password').errors && form.hasError('passwordNotMatch') && (form.get('conf_password').dirty || form.get('conf_password').touched)">
+                Password and Confirm Password should match
+            </small>
+            <br/> <br/>
+            <ion-item class="ion-no-padding" *ngIf="Switch">
+                <ion-label position="floating">Shop Name<span>*</span></ion-label>
+                <ion-input formControlName="shopName"></ion-input>
+            </ion-item>
+            <small class="invalid" *ngIf="Switch && !form.controls.shopName.valid  && submitAttempt">Please enter shop name.</small>
+            <ion-item class="ion-no-padding">
+                <ion-label position="floating">Address line 1 <span>*</span></ion-label>
+                <ion-input formControlName="addr1"></ion-input>
+            </ion-item>
+            <small class="invalid" *ngIf="!form.controls.addr1.valid  && submitAttempt">Please enter address line 1.</small>
+            <ion-item class="ion-no-padding">
+                <ion-label position="floating">address line 2 </ion-label>
+                <ion-input formControlName="addr2"></ion-input>
+            </ion-item>
+            <small class="invalid" *ngIf="!form.controls.addr2.valid  && submitAttempt">Please enter address line 2.</small>
+            <ion-item class="ion-no-padding">
+                <ion-label position="floating">city <span>*</span></ion-label>
+                <ion-input formControlName="city"></ion-input>
+            </ion-item>
+            <small class="invalid" *ngIf="!form.controls.city.valid  && submitAttempt">Please enter city.</small>
+            <ion-item class="ion-no-padding">
+                <ion-label position="floating">state <span>*</span></ion-label>
+                <!-- <ion-input formControlName="state"></ion-input> -->
+                <ion-select formControlName="state" [disabled]="states.length < 1">
+                    <ion-select-option *ngFor="let v of states" value="{{ v.id }}">{{ v.name }}</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <small class="invalid" *ngIf="!form.controls.state.valid  && submitAttempt">Please enter state.</small>
+            <ion-item class="ion-no-padding">
+                <ion-label position="floating">postal code <span>*</span></ion-label>
+                <ion-input formControlName="post_code"></ion-input>
+            </ion-item>
+            <small class="invalid" *ngIf="!form.controls.post_code.valid  && submitAttempt">Please enter postal code.</small>
+            <ion-item class="ion-no-padding">
+                <ion-label position="floating">country <span>*</span></ion-label>
+                <!-- <ion-input formControlName="country"></ion-input> -->
+                <ion-select (ionChange)="getState()" formControlName="country">
+                    <ion-select-option *ngFor="let v of countries" value="{{ v.id }}">{{ v.name }}</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <small class="invalid" *ngIf="!form.controls.country.valid  && submitAttempt">Please enter country.</small>
+            <ion-item class="ion-no-padding">
+                <ion-label position="floating">phone number <span>*</span></ion-label>
+                <ion-input formControlName="phone" type="number"></ion-input>
+            </ion-item>
+            <small class="invalid" *ngIf="!form.controls.phone.valid  && submitAttempt">Please enter phone.</small>
+            <ion-item class="checkboxx" no-lines>
+                <ion-checkbox formControlName="subscribe" color="primary" slot="start"></ion-checkbox>
+                <ion-label>Subscribe me to receive email updates. BarberStylist does not sell personal information</ion-label>
+            </ion-item>
+
+
+            <ion-button shape="round" color="primary " expand="full" (click)="onSubmit()">SIGN UP</ion-button>
+
+            <p>Already have an account? <a href=""> Sign In here </a> </p>
+        </ion-list>
+    </form>
+</ion-content>

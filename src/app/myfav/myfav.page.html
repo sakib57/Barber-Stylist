@@ -1,0 +1,144 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title class="ion-text-center">
+            <img alt="logo" id="header_logo" height="40" src="assets/logo_small.png">
+        </ion-title>
+        <div slot="end" class="notice">
+            <fa-icon [icon]="['far', 'bell']"></fa-icon>
+        </div>
+
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <div class="fav_banner">
+        <img src="assets/fab_icon.png" height="160" />
+        <h1>My Saved Favorites</h1>
+    </div>
+
+    <div class="ss_favor_home">
+        <h3 class="ion-text-center">{{ userInfo.name }}’s Favorite Barbers & Stylists</h3>
+        <ion-grid>
+            <ion-row *ngIf="stylists.length > 0">
+                <ion-col size="6" *ngFor="let v of stylists let i = index">
+                    <ion-card >
+                        <img *ngIf="v.image" [routerLink]="['/home/ctabs/profileview',v.id]" [src]="apiLink+'public/images/thumb_'+v.image" />
+                        <ion-img *ngIf="!v.image" src="assets/demo_user.png"></ion-img>
+                        <div (click)="removeStylist(v.item_id,i)" class="remove_postss">X</div>
+                        <ion-card-content [routerLink]="['/home/ctabs/profileview',v.id]" >
+                            <p>
+                                <b> {{ v.first_name }} {{ v.last_name }}</b><br/> {{ v.shop_name }} <br/>{{ v.addr1 }} {{ v.addr2 }}, {{ v.post_code }}
+                            </p>
+                            <div *ngIf="v.star < 1" class="rating">
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                            </div>
+                            <div *ngIf="v.star == 1" class="rating">
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                            </div>
+                            <div *ngIf="v.star > 1 && v.star < 2" class="rating">
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star-half-alt"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                            </div>
+                            <div *ngIf="v.star == 2" class="rating">
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                            </div>
+                            <div *ngIf="v.star > 2 && v.star < 3" class="rating">
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star-half-alt"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                            </div>
+                            <div *ngIf="v.star  == 3" class="rating">
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                            </div>
+                            <div *ngIf="v.star > 3 && v.star < 4" class="rating">
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star-half-alt"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                            </div>
+                            <div *ngIf="v.star  == 4" class="rating">
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                            </div>
+                            <div *ngIf="v.star > 4 && v.star < 5" class="rating">
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star-half-alt"></fa-icon>
+                            </div>
+                            <div *ngIf="v.star == 5" class="rating">
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                            </div>
+                        </ion-card-content>
+                    </ion-card>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="stylists.length < 1">
+                <ion-col>
+                    <p class="no-item">No favorite stylist</p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        <div class="ion-text-center">
+            <ion-button style="min-width: 300px;" shape="round" color="primary ">Load More Favorites</ion-button>
+            <ion-button routerLink='/home/ctabs/myfavfind' style="min-width: 300px;" shape="round" color="primary " fill="outline">Find More Barbers/Stylists</ion-button>
+        </div>
+    </div>
+    
+    <div class="ss_favor_home">
+        <h3 class="ion-text-center">{{ userInfo.name }}’s Favorite Hairstyles</h3>
+        <ion-grid>
+            <ion-row *ngIf="gallery.length > 0">
+                <ion-col *ngFor="let v of gallery let i = index" size="6">
+                    <ion-card>
+                        <img ionImgViewer title="demo" [src]="apiLink+'public/images/'+v.image"/>
+                        <!-- <ion-img title="Demo" text="Directive" scheme="light" src="assets/g1.png"></ion-img> -->
+                        <div (click)="removeGallery(v.id,i)" class="remove_postss">X</div>
+                    </ion-card>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="gallery.length < 1">
+                <ion-col>
+                    <p class="no-item">No favorite stylist</p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        <div class="ion-text-center">
+            <ion-button style="min-width: 300px;" shape="round" color="primary ">Load More Favorites</ion-button>
+            <ion-button style="min-width: 300px;" shape="round" color="primary " fill="outline" routerLink='/home/ctabs/myfavfind'>Find More Barbers/Stylists</ion-button>
+        </div>
+    </div>
+</ion-content>

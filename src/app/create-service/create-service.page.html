@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home2/tabs/tab1"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Create Service</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div style="text-align: center; margin:20px;">
+    <form [formGroup]="form">
+        <ion-item>
+          <ion-label position="floating">Service Name</ion-label>
+          <ion-input formControlName="service_name"></ion-input>
+        </ion-item>
+        <small style="color:#f72815" *ngIf="!form.controls.service_name.valid  && submitAttempt">Please enter service name.</small>
+        <ion-item>
+          <ion-label position="floating">Duration</ion-label>
+          <ion-input (ionFocus)="openPicker(2,13,multiColumnOptions)" formControlName="duration"></ion-input>
+        </ion-item><small style="color:#f72815" *ngIf="!form.controls.duration.valid  && submitAttempt">Please enter duration.</small>
+        <ion-item>
+          <ion-label position="floating">Price</ion-label>
+          <ion-input formControlName="price" type="number"></ion-input>
+        </ion-item>
+        <small style="color:#f72815" *ngIf="!form.controls.price.valid  && submitAttempt">Please enter price.</small>
+        <ion-item>
+          <ion-label position="floating">Description</ion-label>
+          <ion-textarea formControlName="desc" type="text"></ion-textarea>
+        </ion-item>
+        <small style="color:#f72815" *ngIf="!form.controls.desc.valid  && submitAttempt">Please enter description.</small>
+        <br>
+        <ion-button (click)="onSubmit()" shape="round" fill="solid" style="margin-top: 20px; font-weight: 700;">Save</ion-button>
+        
+    </form>
+  </div>
+</ion-content>

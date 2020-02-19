@@ -1,0 +1,113 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title class="ion-text-center">
+            <img alt="logo" id="header_logo" height="40" src="assets/logo_small.png">
+        </ion-title>
+        <div slot="end" class="notice">
+            <fa-icon [icon]="['far', 'bell']"></fa-icon>
+        </div>
+
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <div class="ss_result_list">
+        <ion-grid>
+            <ion-row *ngFor="let v of data">
+                <ion-col size="5" size-md>
+                    <img *ngIf="v.image != null" [src]="apiLink+'public/images/thumb_'+v.image" />
+                    <img *ngIf="v.image == null" src="../assets/demo_user.png"/>
+                </ion-col>
+                <ion-col>
+                    <ion-card [routerLink]="['/home/ctabs/profileview',v.id]">
+                        <ion-card-content class="ion-no-padding">
+                            <p>
+                                <b> {{ v.first_name }} {{ v.last_name }}</b><br/> {{ v.shop_name }} <br/>{{ v.addr1 }} {{ v.addr2 }},{{ v.post_code }}
+                            </p>
+                            <div *ngIf="v.star < 1" class="rating">
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                            </div>
+                            <div *ngIf="v.star == 1" class="rating">
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                            </div>
+                            <div *ngIf="v.star > 1 && v.star < 2" class="rating">
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star-half-alt"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                            </div>
+                            <div *ngIf="v.star == 2" class="rating">
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                            </div>
+                            <div *ngIf="v.star > 2 && v.star < 3" class="rating">
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star-half-alt"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                            </div>
+                            <div *ngIf="v.star  == 3" class="rating">
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                            </div>
+                            <div *ngIf="v.star > 3 && v.star < 4" class="rating">
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star-half-alt"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                            </div>
+                            <div *ngIf="v.star  == 4" class="rating">
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                            </div>
+                            <div *ngIf="v.star > 4 && v.star < 5" class="rating">
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star-half-alt"></fa-icon>
+                            </div>
+                            <div *ngIf="v.star == 5" class="rating">
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                            </div>
+                            <p><a> ({{ v.review_count }} Reviews) </a></p>
+                            <p><a>Directions | 2.7 mi</a></p>
+                        </ion-card-content>
+                    </ion-card>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        <br/>
+        <br/>
+        <div text-center>
+            <ion-button shape="round" color="primary ">Load More</ion-button>
+        </div>
+
+    </div>
+</ion-content>

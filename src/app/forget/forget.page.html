@@ -1,0 +1,21 @@
+<ion-content>
+    <div class="login_top">
+        <p>forgot password</p>
+        <div class="logo"> <img src="assets/logo.png" routerLink='/' /></div>
+    </div>
+    <form [formGroup]="form" class="ss_from">
+        <ion-list lines="full">
+            <ion-item class="ion-no-padding">
+                <ion-label position="floating">enter USERNAME or email</ion-label>
+                <ion-input formControlName="email"></ion-input>
+            </ion-item>
+            <small class="invalid" *ngIf="!form.controls.email.valid  && submitAttempt">Please enter registered email or username.</small>
+            
+
+            <ion-button (click)="onSubmit()" shape="round" color="primary " expand="full">continue</ion-button>
+
+
+            <p>Need help? <a routerLink='/contact'>  Contact Us</a> </p>
+        </ion-list>
+    </form>
+</ion-content>

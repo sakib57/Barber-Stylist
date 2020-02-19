@@ -1,0 +1,251 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <!-- <ion-menu-button></ion-menu-button> -->
+            <ion-back-button defaultHref="/home/ctabs/tab1"></ion-back-button>
+        </ion-buttons>
+        <ion-title class="ion-text-center">
+            <img alt="logo" id="header_logo" height="40" src="assets/logo_small.png">
+        </ion-title>
+        <div slot="end" class="notice">
+            <fa-icon [icon]="['far', 'bell']"></fa-icon>
+        </div>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <div class="profile_top" *ngIf="info.image != ''">
+        <img style="width: 100%;" [src]="apiLink+'public/images/thumb_'+info.image">
+        <div class="profile_image">
+            <img [src]="apiLink+'public/images/thumb_'+info.image" style="max-width:inherit;" height="100">
+        </div>
+    </div>
+    <div class="profile_top" *ngIf="info.image == ''">
+        <ion-skeleton-text animated style="height: 226px"></ion-skeleton-text>
+        <div class="profile_image">
+                <ion-skeleton-text animated></ion-skeleton-text>
+        </div>
+    </div>
+    <h3 *ngIf="info.name != ''" class="ion-text-center">{{ info.name }}</h3>
+    <h3 *ngIf="info.name == ''" class="ion-text-center"><ion-skeleton-text animated></ion-skeleton-text></h3>
+    <ion-segment [(ngModel)]="segment">
+        <ion-segment-button value="about">
+            about
+        </ion-segment-button>
+        <ion-segment-button value="services">
+            services
+        </ion-segment-button>
+        <ion-segment-button value="reviews">
+            reviews
+        </ion-segment-button>
+    </ion-segment>
+    <div [ngSwitch]="segment">
+        <div *ngSwitchCase="'about'">
+            <div class="about_info">
+                <ion-grid>
+                    <ion-row>
+                        <ion-col size="6">
+                            <p> <b>{{ info.designation }}</b> <br/>{{ info.addr1 }} {{ info.addr2 }}, {{ info.post_code }} <br> {{ info.phone }} </p>
+                            <p><a href="#">Get Directions</a></p>
+                            <p>www.johnwebsite.com</p>
+                            <div class="social_icon">
+                                <ion-icon name="logo-facebook"></ion-icon>
+                                <ion-icon name="logo-instagram"></ion-icon>
+                                <ion-icon name="logo-twitter"></ion-icon>
+                                <ion-icon name="logo-linkedin"></ion-icon>
+
+                            </div>
+                            <p style="line-height: 22px;">
+                                <b>Monday:</b> {{ info.mon_start_time | date : 'hh:mm a' }} - {{ info.mon_end_time | date : 'hh:mm a' }} <br/>
+                                <b>Tuesday:</b> {{ info.tue_start_time | date : 'hh:mm a' }} - {{ info.tue_end_time | date : 'hh:mm a' }} <br/>
+                                <b>Wednesday:</b> {{ info.wed_start_time | date : 'hh:mm a' }} - {{ info.wed_end_time | date : 'hh:mm a' }} <br/>
+                                <b>Thursday:</b> {{ info.thu_start_time | date : 'hh:mm a' }} - {{ info.thu_end_time | date : 'hh:mm a' }} <br/>
+                                <b>Friday:</b> {{ info.fri_start_time | date : 'hh:mm a' }} - {{ info.fri_end_time | date : 'hh:mm a' }} <br/>
+                                <b>Saturday:</b> {{ info.sat_start_time | date : 'hh:mm a' }} - {{ info.sat_end_time | date : 'hh:mm a' }}
+                            </p>
+
+                        </ion-col>
+                        <ion-col>
+                            <div class="add_fav">
+                                <fa-icon (click)="rmvFav(info.emp_id)" *ngIf="fav" slot="start" icon="heart"></fa-icon>
+                                <fa-icon (click)="makeFav(info.emp_id)" *ngIf="!fav" [icon]="['far', 'heart']"></fa-icon>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+                <div class="ion-text-center">
+                    <ion-button [routerLink]="['/home/ctabs/bookappoinment',info.emp_id]" style="min-width: 300px;" shape="round" color="primary ">Book Appointment</ion-button>
+                </div>
+            </div>
+            <div class="ss_favor_home">
+                <h3 style="padding-left: 10px;">My Work</h3>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col *ngFor="let v of gallery" size="6">
+                            <ion-card>
+                                <img [src]="apiLink+'public/images/thumb_'+v.image" />
+                                <div class="remove_postss">
+                                    <fa-icon *ngIf="v.fav_id" (click)="rmvFavStyle(v.fav_id)" slot="start" icon="heart"></fa-icon>
+                                    <fa-icon *ngIf="!v.fav_id" (click)="makeFavStyle(v.id)" [icon]="['far', 'heart']"></fa-icon>
+                                </div>
+                            </ion-card>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+                <div class="ion-text-center">
+                    <ion-button style="min-width: 300px;" shape="round" color="primary ">Load More</ion-button>
+                    <ion-button style="min-width: 300px;" shape="round" color="primary " fill="outline"  [routerLink]="['/home/ctabs/bookappoinment',info.emp_id]">Book Appointment</ion-button>
+                </div>
+
+            </div>
+        </div>
+        <div *ngSwitchCase="'services'">
+            <h3 style="padding-left: 10px;">Services</h3>
+            <ion-list lines="none">
+                <ion-item lines="none" *ngFor="let v of services">
+                    <p>
+                        <b>{{ v.service_name }}</b><br/>
+                        <a>{{ v.duration }} minutes</a><br/> {{ v.description }}
+                    </p>
+                    <p slot="end">${{ v.price }}</p>
+                </ion-item>
+            </ion-list>
+            <div class="ion-text-center">
+                <ion-button style="min-width: 300px;" shape="round" color="primary" [routerLink]="['/home/ctabs/bookappoinment',info.emp_id]">Book Appointment</ion-button>
+                <br/>
+                <br/>
+            </div>
+        </div>
+
+        <div *ngSwitchCase="'reviews'">
+            <div *ngIf="hideMe">
+                <h3 style="padding-left: 10px;">Reviews</h3>
+                <ion-list lines="none">
+                    <ion-item-group class="ion-padding" *ngFor="let v of reviews">
+                        <ion-item class="ion-no-padding">
+                            <ion-avatar slot="start">
+                                <img [src]="apiLink+'public/images/thumb_'+v.image" height="100">
+                            </ion-avatar>
+                            <ion-label>
+                                <h2>{{ v.first_name }} {{ v.last_name }}</h2>
+                                <p><a>{{ v.created_at | date }}</a></p>
+                            </ion-label>
+                            <div class="rating" slot="end" *ngIf="v.star == '1'">
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                            </div>
+
+                            <div class="rating" slot="end" *ngIf="v.star == '2'">
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                            </div>
+
+                            <div class="rating" slot="end" *ngIf="v.star == '3'">
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                            </div>
+
+                            <div class="rating" slot="end" *ngIf="v.star == '4'">
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon [icon]="['far', 'star']"></fa-icon>
+                            </div>
+
+                            <div class="rating" slot="end" *ngIf="v.star == '5'">
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                                <fa-icon slot="start" icon="star"></fa-icon>
+                            </div>
+                        </ion-item>
+                        <p slot="none" class="ion-text-wrap">{{ v.message }}</p>
+                    </ion-item-group>
+                </ion-list>
+                <div class="ion-text-center">
+                    <!-- <ion-button style="min-width: 300px;" shape="round" color="primary " fill="outline" (click)="hide()">Write a Review</ion-button> -->
+                    <ion-button [routerLink]="['/home/ctabs/bookappoinment',info.emp_id]" style="min-width: 300px;" shape="round" color="primary ">Book Appointment</ion-button>
+
+                </div>
+            </div>
+            <div *ngIf="showMe">
+                <form class="ss_from">
+                    <div class="rating ion-text-center" *ngIf="key == 0">
+                        <fa-icon (click)="srtStar(1)" [icon]="['far', 'star']"></fa-icon>
+                        <fa-icon (click)="srtStar(2)" [icon]="['far', 'star']"></fa-icon>
+                        <fa-icon (click)="srtStar(3)" [icon]="['far', 'star']"></fa-icon>
+                        <fa-icon (click)="srtStar(4)" [icon]="['far', 'star']"></fa-icon>
+                        <fa-icon (click)="srtStar(5)" [icon]="['far', 'star']"></fa-icon>
+                        <p>How many stars?</p>
+                    </div>
+
+                    <div class="rating ion-text-center" *ngIf="key == 1">
+                        <fa-icon (click)="srtStar(1)" slot="start" icon="star"></fa-icon>
+                        <fa-icon (click)="srtStar(2)" [icon]="['far', 'star']"></fa-icon>
+                        <fa-icon (click)="srtStar(3)" [icon]="['far', 'star']"></fa-icon>
+                        <fa-icon (click)="srtStar(4)" [icon]="['far', 'star']"></fa-icon>
+                        <fa-icon (click)="srtStar(5)" [icon]="['far', 'star']"></fa-icon>
+                        <p>How many stars?</p>
+                    </div>
+
+                    <div class="rating ion-text-center" *ngIf="key == 2">
+                        <fa-icon (click)="srtStar(1)" slot="start" icon="star"></fa-icon>
+                        <fa-icon (click)="srtStar(2)" slot="start" icon="star"></fa-icon>
+                        <fa-icon (click)="srtStar(3)" [icon]="['far', 'star']"></fa-icon>
+                        <fa-icon (click)="srtStar(4)" [icon]="['far', 'star']"></fa-icon>
+                        <fa-icon (click)="srtStar(5)" [icon]="['far', 'star']"></fa-icon>
+                        <p>How many stars?</p>
+                    </div>
+
+                    <div class="rating ion-text-center" *ngIf="key == 3">
+                        <fa-icon (click)="srtStar(1)" slot="start" icon="star"></fa-icon>
+                        <fa-icon (click)="srtStar(2)" slot="start" icon="star"></fa-icon>
+                        <fa-icon (click)="srtStar(3)" slot="start" icon="star"></fa-icon>
+                        <fa-icon (click)="srtStar(4)" [icon]="['far', 'star']"></fa-icon>
+                        <fa-icon (click)="srtStar(5)" [icon]="['far', 'star']"></fa-icon>
+                        <p>How many stars?</p>
+                    </div>
+
+                    <div class="rating ion-text-center" *ngIf="key == 4">
+                        <fa-icon (click)="srtStar(1)" slot="start" icon="star"></fa-icon>
+                        <fa-icon (click)="srtStar(2)" slot="start" icon="star"></fa-icon>
+                        <fa-icon (click)="srtStar(3)" slot="start" icon="star"></fa-icon>
+                        <fa-icon (click)="srtStar(4)" slot="start" icon="star"></fa-icon>
+                        <fa-icon (click)="srtStar(5)" [icon]="['far', 'star']"></fa-icon>
+                        <p>How many stars?</p>
+                    </div>
+
+                    <div class="rating ion-text-center" *ngIf="key == 5">
+                        <fa-icon (click)="srtStar(1)" slot="start" icon="star"></fa-icon>
+                        <fa-icon (click)="srtStar(2)" slot="start" icon="star"></fa-icon>
+                        <fa-icon (click)="srtStar(3)" slot="start" icon="star"></fa-icon>
+                        <fa-icon (click)="srtStar(4)" slot="start" icon="star"></fa-icon>
+                        <fa-icon (click)="srtStar(5)" slot="start" icon="star"></fa-icon>
+                        <p>How many stars?</p>
+                    </div>
+                    <ion-list lines="full">
+                        <form [formGroup]="form">
+                            <ion-item no-padding>
+                                <ion-label position="floating">Tell us about your experience below (250 characters max).</ion-label>
+                                <ion-input formControlName="message"></ion-input>
+                            </ion-item>
+                            <small style="color:#f72815" *ngIf="!form.controls.message.valid  && submitAttempt">Please enter message.</small>
+                            <ion-button expand="full" shape="round" color="primary " fill="outline" (click)="show()">Submit Your Review</ion-button>
+                        </form>
+                    </ion-list>
+                </form>
+            </div>
+        </div>
+    </div>
+</ion-content>

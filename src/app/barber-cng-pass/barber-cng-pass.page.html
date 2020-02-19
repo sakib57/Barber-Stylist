@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button ></ion-back-button>
+    </ion-buttons>
+    <ion-title>Change Password</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form class="ss_from" [formGroup]="form">
+        <ion-list no-lines>
+            <ion-item class="ion-no-padding">
+                <ion-label position="floating">Old Password<span>*</span></ion-label>
+                <ion-input formControlName="oldPass" type="password"></ion-input>
+            </ion-item>
+            <small class="invalid" *ngIf="!form.controls.oldPass.valid  && submitAttempt">Please enter old password.</small>
+            <ion-item class="ion-no-padding">
+                <ion-label position="floating">New Password<span>*</span></ion-label>
+                <ion-input formControlName="newPass" type="password"></ion-input>
+            </ion-item>
+            <small class="invalid" *ngIf="!form.controls.newPass.valid  && submitAttempt">Please enter new password.</small>
+            <ion-item class="ion-no-padding">
+                <ion-label position="floating">Confirm New Password<span>*</span></ion-label>
+                <ion-input formControlName="confNewPass" type="password"></ion-input>
+            </ion-item>
+            <small class="invalid" *ngIf="!form.controls.confNewPass.valid  && submitAttempt">Confirm new password.</small>
+            <small class="invalid" *ngIf="!form.get('confNewPass').errors && form.hasError('passwordNotMatch') && (form.get('confNewPass').dirty || form.get('confNewPass').touched)">
+                Didn't match with password
+            </small>
+            <ion-button shape="round" color="primary " expand="full" (click)="onSubmit()">UPDATE</ion-button>
+        </ion-list>
+    </form>
+</ion-content>

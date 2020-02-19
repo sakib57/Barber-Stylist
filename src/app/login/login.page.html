@@ -1,0 +1,24 @@
+<ion-content>
+    <div class="login_top">
+        <p>sign in</p>
+        <div class="logo"> <img src="assets/logo.png" routerLink='/' /></div>
+    </div>
+    <form class="ss_from" [formGroup]="form">
+        <ion-list lines="full">
+            <ion-item class="ion-no-padding">
+                <ion-label position="floating">USERNAME</ion-label>
+                <ion-input formControlName="username"></ion-input>
+            </ion-item>
+            <small style="color:#f72815" *ngIf="!form.controls.username.valid  && submitAttempt">Please enter minimum 3 character username.</small>
+            <ion-item class="ion-no-padding">
+                <ion-label position="floating">PASSWORD</ion-label>
+                <ion-input formControlName="password" type="password"></ion-input>
+            </ion-item>
+            <small style="color:#f72815" *ngIf="!form.controls.password.valid  && submitAttempt">Please enter minimum 6 character password.</small>
+            <ion-button shape="round" color="primary " expand="full" (click)="onSubmit()">SIGN IN</ion-button>
+
+            <p routerLink='/forget'>Forgot Password?</p>
+            <p>Don’t have an account? <a routerLink='/registration'> Sign Up here </a> </p>
+        </ion-list>
+    </form>
+</ion-content>
